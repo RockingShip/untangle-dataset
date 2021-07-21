@@ -8,7 +8,7 @@ image: assets/favimage-840x472.jpg
 [![teaser](assets/favimage-840x472.jpg)](https://rockingship.github.io/untangle-dataset/viewer/span-5n9.html)
 \[A 5-node 9-variable (5n9) structure (magenta) spanning an expression.
 
-# untangle-dataset (v1)
+# untangle-dataset
 
 RockingShip proudly presents the first version of the dataset describing practical fractal space.
 
