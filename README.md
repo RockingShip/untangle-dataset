@@ -14,29 +14,49 @@ RockingShip proudly presents the first version of the dataset describing practic
 
 TL;DR
 
-Unpack and install
+Grab file with easy URL, unpack and build
 
 ```sh
-  wget https://raw.githubusercontent.com/RockingShip/untangle-dataset/master/untangle-mixed-v1.json.xz
+  wget https://rockingship.github.io/untangle-dataset/untangle-mixed-v1.json.xz
   xz -d untangle-mixed-v1.json.xz
   genimport untangle-mixed-v1.db untangle-mixed-v1.json
   ln -s untangle-mixed-v1.db untangle.db
 ```
 
+## Manifest
+
+  Files hosted on this page:
+
+  - [untangle-mixed-v1.json.xz](untangle-mixed-v1.json.xz) - Import data (RECOMMENDED)  
+    SIZE=3911456, MD5=d97762d0de228601fc6bdd7d85e43b5f
+
+  - [untangle-mixed-v1.tar.xz](untangle-mixed-v1.tar.xz) - Data-list files
+    SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
+
+  "mixed" allow "QTnF" and "QTF" operators, "pure" are "QnTF" only
+
+  Other files/versions can be found on the github project page [https://github.com/RockingShip/untangle-dataset](https://github.com/RockingShip/untangle-dataset)
+
 ## Table of contents
 
+  - [Manifest](#manifest)
   - [Table of contents](#table-of-contents)
   - [Dataset `5n9`](#dataset-5n9)
   - [Dataset `6n9-pure`](#dataset-6n9-pure)
   - [Building and Installation](#building-and-installation)
     - [Build system](#build-system)
-  - [`untangle-mixed-v1.db` from scratch](#untangle-mixed-v1db-from-scratch)
+  - [`untangle-mixed-v1.db` from list files (15 minutes)](#untangle-mixed-v1db-from-list-files-15-minutes)
+    - [Section `transform`](#section-transform)
+    - [Load `signature`](#load-signature)
+    - [Build `swap`](#build-swap)
+    - [Load `member`](#load-member)
+    - [Creating data-lists](#creating-data-lists)
+  - [`untangle-mixed-v1.db` from scratch](#untangle-mixed-v1db-from-scratch-2-3-hours)
     - [Section `transform` (1 minute)](#section-transform-1-minute)
     - [Section `signature` (5 minutes)](#section-signature-10-minutes)
     - [Section `swap` (1 minutes)](#section-swap-2-minutes)
     - [Section `member` (15 + 50 / gridCPU minutes)](#section-member-15--50--gridcpu-minutes)
     - [Remove `depreciated` members (30 minutes)](#remove-depreciated-members-30-minutes)
-  - [Manifest](#manifest)
   - [Requirements](#requirements)
   - [Versioning](#versioning)
   - [License](#license)
@@ -111,14 +131,14 @@ There are three ways to build the database:
 
   - Importing (recommended)
 
-    Very fast (minutes). However, data is immutable and CRC protected.
+    Very fast and import is checksum protected.
 
-  - Loading checkpoints
+  - [Loading data lists](#untangle-mixed-v1db-from-list-files-15-minutes)
 
-    Loading the data and re-applying validation takes about an hour.  
+    Loading the data and re-applying validation takes about 15 minutes.  
     The advantage is that data can be tweaked, mixed or manually constructed.
 
-  - Building from scratch
+  - [Building from scratch](#untangle-mixed-v1db-from-scratch-2-3-hours)
 
     This can take days unless there is a High-Performance-Computing grid lying around.  
     `Untangle` was build with the Sun-Grid-Engine in mind.
@@ -149,7 +169,59 @@ The database generator programs typically open the input database using `mmap()`
 
 Saving a 18G database file can take between 10 seconds to several minutes, even on SSD.
 
-## `untangle-mixed-v1.db` from scratch
+## `untangle-mixed-v1.db` from list files (15 minutes)
+
+Export lists contain the values present in the database sections.  
+They are re-validated when loaded and are basically are a fast-forward without false-positives.  
+The advantage is that data can be examined, mixed and even modified.
+
+Grab and unpack one of the data-list archives.
+
+The following paragraph contain the commands to create and load them into the database.
+
+### Section `transform`
+
+Create initial database containing pre-calculated mandatory sections.
+
+```
+[xyzzy@host v2.8.0]$ ./gentransform transform.db
+```
+
+### Load `signature`
+
+Load the list with signatures into the database.  
+Node size = 4.
+
+```
+[xyzzy@host v2.8.0]$ ./gensignature transform.db 4 signature.db --load=signature.lst --no-generate
+```
+
+### Build `swap`
+
+The variabl/endpoint swap information needs to be calculated.
+
+```
+[xyzzy@host v2.8.0]$ ./genswap signature.db swap.db
+```
+
+### Load `member`
+
+Load the list with members into the database.  
+Depreciated members have already been removed from the list.  
+Node size = 5.
+
+```
+[xyzzy@host v2.8.0]$ ./genmember swap.db 5 untangle-mixed-v1.db --load=member.lst --no-generate
+```
+
+### Creating data-lists
+
+```
+[xyzzy@host v2.8.0]$ ./gensignature untangle-mixed-v1.db 4 --no-generate --text=3 > signature.lst
+[xyzzy@host v2.8.0]$ ./genmember untangle-mixed-v1.db 5 --no-generate --text=3 > member.lst
+```
+
+## `untangle-mixed-v1.db` from scratch (2-3 hours)
 
 The following paragraphs contain the commands and screen logs to create the database section.
 
@@ -467,14 +539,6 @@ Last step is to export the database (19.6GByte) into readable text/json (103MByt
 ```
 [xyzzy@host v2.8.0]$ ./genexport untangle-mixed-v1.json depr-5n9.db
 [xyzzy@host v2.8.0]$ xz untangle-mixed-v1.json
-```
-
-## Manifest
-
-Version 1 @date 2021-07-21 19:28:50:
-
-```
-  untangle-mixed-v1.json.xz   SIZE=3911456, MD5=d97762d0de228601fc6bdd7d85e43b5f
 ```
 
 ## Requirements
