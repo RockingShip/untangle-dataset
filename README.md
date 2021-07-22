@@ -30,8 +30,14 @@ Grab file with easy URL, unpack and build
   - [untangle-mixed-v1.json.xz](untangle-mixed-v1.json.xz) - Import data (RECOMMENDED)  
     SIZE=3911456, MD5=d97762d0de228601fc6bdd7d85e43b5f
 
-  - [untangle-mixed-v1.tar.xz](untangle-mixed-v1.tar.xz) - Data-list files
+  - [untangle-mixed-v1.tar.xz](untangle-mixed-v1.tar.xz) - Data-list files  
     SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
+
+  - [untangle-pure-v1.json.xz](untangle-pure-v1.json.xz) - Import data  
+    SIZE=1125616 , MD5=7996ec91497e3d1dc3c0645ba16db0a3
+
+  - [untangle-pure-v1.tar.xz](untangle-pure-v1.tar.xz) - Data-list files  
+    SIZE=857404, MD5=b8b8784c7b97272ccf44f263ab980b23
 
   "mixed" allow "QTnF" and "QTF" operators, "pure" are "QnTF" only
 
@@ -45,18 +51,20 @@ Grab file with easy URL, unpack and build
   - [Dataset `6n9-pure`](#dataset-6n9-pure)
   - [Building and Installation](#building-and-installation)
     - [Build system](#build-system)
+  - [`untangle-mixed-v1.db` from import file](#untangle-mixed-v1db-from-import-file)
   - [`untangle-mixed-v1.db` from list files (15 minutes)](#untangle-mixed-v1db-from-list-files-15-minutes)
     - [Section `transform`](#section-transform)
     - [Load `signature`](#load-signature)
     - [Build `swap`](#build-swap)
     - [Load `member`](#load-member)
     - [Creating data-lists](#creating-data-lists)
-  - [`untangle-mixed-v1.db` from scratch](#untangle-mixed-v1db-from-scratch-2-3-hours)
+  - [`untangle-mixed-v1.db` from scratch (2-3 hours)](#untangle-mixed-v1db-from-scratch-2-3-hours)
     - [Section `transform` (1 minute)](#section-transform-1-minute)
     - [Section `signature` (5 minutes)](#section-signature-10-minutes)
     - [Section `swap` (1 minutes)](#section-swap-2-minutes)
-    - [Section `member` (15 + 50 / gridCPU minutes)](#section-member-15--50--gridcpu-minutes)
+    - [Section `member` (90 minutes)](#section-member-90-minutes)
     - [Remove `depreciated` members (30 minutes)](#remove-depreciated-members-30-minutes)
+  - [`untangle-pure-v1.db` from scratch (~40 hours)](#untangle-pure-v1db-from-scratch-40-hours)
   - [Requirements](#requirements)
   - [Versioning](#versioning)
   - [License](#license)
@@ -109,21 +117,17 @@ These are signatures where all nodes are exclusively `QnTF` except the top-level
 All the nodes of member structures are exclusively `QnTF`.
 
 Just like the main dataset, members of `5n9-pure` space are used to fill blank spots of `4n9-pure` space.
-Only it turns out that 3 of the 193171 signatures have missing members, requiring to search for them in `6n9-pure` space.  
-The challenge is that scanning `5n9-pure` space takes 6 hours and `6n9-pure` space is 450 times larger (4.1e11 structures).
+Only it turns out that 3 of the 193170 signatures have missing members, requiring to search for them in `6n9-pure` space.  
+The challenge is that scanning `5n9-pure` space takes 9 hours and `6n9-pure` space is 450 times larger (4.1e11 structures).
 
-To speed things up, an intermediate dataset is created containing only the 3 incomplete signature groups.  
+Speed improvement is achieved by narrowing the search to only the missing signatures.  
 In addition, the lookup index is set to full-associative mode which is 720 times faster.  
-A full associative index is also 720 larger which makes it only doable for tiny signature collections.
-For comparison, the `5n9-pure` associative index is 4GByte.
+A full associative index is also 720 larger which makes it only feasible for tiny signature collections.
 
-Scanning `6n9-pure` finds 22661 candidates of which 449 are usable.
+The dataset size is significantly different:
 
-Note that when one of these three signatures are detected in the run-time input, they will be substituted with structures that are 2 nodes larger.
-
-Using `QnTF` only structures reduces possibilities in variation resulting in more condensed structures.  
-The collection consists of 31962556 members, of which ? are depreciated and ? are considered building block components.
-Compared with `5n9` dataset with values 6258678, ? and ?.
+  - Pure: 791646 signatures and 3651374 members
+  - Mixed: 193170 signatures and 381582 members
 
 ## Building and Installation
 
@@ -168,6 +172,15 @@ The database generator programs typically open the input database using `mmap()`
   then at the very last moment open the output database with `posix_fadvise(POSIX_FADV_DONTNEED)`.
 
 Saving a 18G database file can take between 10 seconds to several minutes, even on SSD.
+
+## `untangle-mixed-v1.db` from import file
+
+
+  wget https://rockingship.github.io/untangle-dataset/untangle-mixed-v1.json.xz
+  xz -d untangle-mixed-v1.json.xz
+  genimport untangle-mixed-v1.db untangle-mixed-v1.json
+  ln -s untangle-mixed-v1.db untangle.db
+
 
 ## `untangle-mixed-v1.db` from list files (15 minutes)
 
@@ -321,7 +334,7 @@ Single pass, no checkpointing.
 [00:02:01] Written swap-4n9.db, 19252534176 bytes
 ```
 
-### Section `member` (15 + 50 / gridCPU minutes)
+### Section `member` (90 minutes)
 
 Multi-pass upto `4n9`. `5n9` is a beast and best fed to the grid.
 NOTE: This section must have zero empty and unsafe members to be complete.
@@ -540,6 +553,13 @@ Last step is to export the database (19.6GByte) into readable text/json (103MByt
 [xyzzy@host v2.8.0]$ ./genexport untangle-mixed-v1.json depr-5n9.db
 [xyzzy@host v2.8.0]$ xz untangle-mixed-v1.json
 ```
+
+## `untangle-pure-v1.db` from scratch (~40 hours)
+
+This dataset is a tough cookie.  
+
+It takes 9 single-core hours to scan `5n9` space which finds all but 3 signature groups.  
+Scanning `6n9` space for the remaining 3 requires an additional 30 single-core hours.
 
 ## Requirements
 
