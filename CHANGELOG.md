@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ```
+2021-07-22 16:54:51 Fixed: Typos.
 2021-07-22 14:16:12 Added: `untangle-pure`.
 2021-07-21 23:52:26 Fixed: `3d-force-graph.js`.
 2021-07-21 22:14:26 Added: `untangle-mixed-v1.tar.xz`.

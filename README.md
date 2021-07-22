@@ -47,7 +47,7 @@ Grab file with easy URL, unpack and build
 
   - [Manifest](#manifest)
   - [Table of contents](#table-of-contents)
-  - [Dataset `5n9`](#dataset-5n9)
+  - [Dataset `5n9-mixed`](#dataset-5n9-mixed)
   - [Dataset `6n9-pure`](#dataset-6n9-pure)
   - [Building and Installation](#building-and-installation)
     - [Build system](#build-system)
@@ -64,12 +64,12 @@ Grab file with easy URL, unpack and build
     - [Section `swap` (1 minutes)](#section-swap-2-minutes)
     - [Section `member` (90 minutes)](#section-member-90-minutes)
     - [Remove `depreciated` members (30 minutes)](#remove-depreciated-members-30-minutes)
-  - [`untangle-pure-v1.db` from scratch (~40 hours)](#untangle-pure-v1db-from-scratch-40-hours)
+  - [`untangle-pure-v1.db` from scratch (40 hours)](#untangle-pure-v1db-from-scratch-40-hours)
   - [Requirements](#requirements)
   - [Versioning](#versioning)
   - [License](#license)
 
-## Dataset `5n9`
+## Dataset `5n9-mixed`
 
 Generating the dataset from scratch takes about 80 single-core hours to construct.  
 The essence is exported as a 100Mbyte JSON, compressed to 9M, which when imported and indexed will become 20G.
@@ -554,7 +554,7 @@ Last step is to export the database (19.6GByte) into readable text/json (103MByt
 [xyzzy@host v2.8.0]$ xz untangle-mixed-v1.json
 ```
 
-## `untangle-pure-v1.db` from scratch (~40 hours)
+## `untangle-pure-v1.db` from scratch (40 hours)
 
 This dataset is a tough cookie.  
 
