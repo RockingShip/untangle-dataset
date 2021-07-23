@@ -33,7 +33,7 @@ Grab file with easy URL, unpack and build
     SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
 
   - [untangle-pure.20210723.json.xz](untangle-pure.20210723.json.xz) - Import data  
-    SIZE=1125616 , MD5=e5b40b8dec4c866a1bcb63f4aa7022d0
+    SIZE=1125616, MD5=e5b40b8dec4c866a1bcb63f4aa7022d0
 
   - [untangle-pure.20210723.tar.xz](untangle-pure.20210723.tar.xz) - Data-list files  
     SIZE=857404, MD5=b8b8784c7b97272ccf44f263ab980b23
@@ -109,7 +109,8 @@ The dataset contains:
 
 ## Dataset `6n9-pure`
 
-Additionally available is the experimental dataset consisting exclusively of `QnTF` operators.
+Additionally available is the experimental dataset consisting exclusively of `QnTF` operators.  
+This database is 8GByte large.
 
 The dataset is based on `4n9` pure signatures.  
 These are signatures where all nodes are exclusively `QnTF` except the top-level node that may be mixed `QnTF` or `QTF`.  
@@ -560,6 +561,8 @@ This dataset is a tough cookie.
 
 It takes 9 single-core hours to scan `5n9` space which finds all but 3 signature groups.  
 Scanning `6n9` space for the remaining 3 requires an additional 30 single-core hours.
+
+In total some 33M members were found of which 381582 were selected as contributing.
 
 ## Requirements
 
