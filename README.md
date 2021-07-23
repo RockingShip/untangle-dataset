@@ -27,16 +27,16 @@ Grab file with easy URL, unpack and build
 
   Files hosted on this page:
 
-  - [untangle-mixed-v1.json.xz](untangle-mixed-v1.json.xz) - Import data (RECOMMENDED)  
-    SIZE=3911456, MD5=d97762d0de228601fc6bdd7d85e43b5f
+  - [untangle-mixed-v1.20210723.json.xz](untangle-mixed-v1.20210723.json.xz) - Import data (RECOMMENDED)  
+    SIZE=3909328, MD5=73fa36b5f2dcc2d7cf80ab0a94ab5d5a
 
-  - [untangle-mixed-v1.tar.xz](untangle-mixed-v1.tar.xz) - Data-list files  
+  - [untangle-mixed-v1.20210723.tar.xz](untangle-mixed-v1.20210723.tar.xz) - Data-list files  
     SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
 
-  - [untangle-pure-v1.json.xz](untangle-pure-v1.json.xz) - Import data  
-    SIZE=1125616 , MD5=7996ec91497e3d1dc3c0645ba16db0a3
+  - [untangle-pure-v1.20210723.json.xz](untangle-pure-v1.20210723.json.xz) - Import data  
+    SIZE=1125616 , MD5=e5b40b8dec4c866a1bcb63f4aa7022d0
 
-  - [untangle-pure-v1.tar.xz](untangle-pure-v1.tar.xz) - Data-list files  
+  - [untangle-pure-v1.20210723.tar.xz](untangle-pure-v1.20210723.tar.xz) - Data-list files  
     SIZE=857404, MD5=b8b8784c7b97272ccf44f263ab980b23
 
   "mixed" allow "QTnF" and "QTF" operators, "pure" are "QnTF" only
@@ -555,6 +555,8 @@ Last step is to export the database (19.6GByte) into readable text/json (103MByt
 ```
 
 ## `untangle-pure-v1.db` from scratch (40 hours)
+
+Steps similar to the mixed version, except adding the `--pure` option to all the program invocations.
 
 This dataset is a tough cookie.  
 
