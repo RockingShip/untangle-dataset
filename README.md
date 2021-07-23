@@ -17,26 +17,25 @@ TL;DR
 Grab file with easy URL, unpack and build
 
 ```sh
-  wget https://rockingship.github.io/untangle-dataset/untangle-mixed-v1.json.xz
-  xz -d untangle-mixed-v1.json.xz
-  genimport untangle-mixed-v1.db untangle-mixed-v1.json
-  ln -s untangle-mixed-v1.db untangle.db
+  wget https://rockingship.github.io/untangle-dataset/untangle-mixed.20210723.json.xz
+  xz -d untangle-mixed.20210723.json.xz
+  genimport untangle-mixed.db untangle-mixed.20210723.json
 ```
 
 ## Manifest
 
   Files hosted on this page:
 
-  - [untangle-mixed-v1.20210723.json.xz](untangle-mixed-v1.20210723.json.xz) - Import data (RECOMMENDED)  
+  - [untangle-mixed.20210723.json.xz](untangle-mixed.20210723.json.xz) - Import data (RECOMMENDED)  
     SIZE=3909328, MD5=73fa36b5f2dcc2d7cf80ab0a94ab5d5a
 
-  - [untangle-mixed-v1.20210723.tar.xz](untangle-mixed-v1.20210723.tar.xz) - Data-list files  
+  - [untangle-mixed.20210723.tar.xz](untangle-mixed.20210723.tar.xz) - Data-list files  
     SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
 
-  - [untangle-pure-v1.20210723.json.xz](untangle-pure-v1.20210723.json.xz) - Import data  
+  - [untangle-pure.20210723.json.xz](untangle-pure.20210723.json.xz) - Import data  
     SIZE=1125616 , MD5=e5b40b8dec4c866a1bcb63f4aa7022d0
 
-  - [untangle-pure-v1.20210723.tar.xz](untangle-pure-v1.20210723.tar.xz) - Data-list files  
+  - [untangle-pure.20210723.tar.xz](untangle-pure.20210723.tar.xz) - Data-list files  
     SIZE=857404, MD5=b8b8784c7b97272ccf44f263ab980b23
 
   "mixed" allow "QTnF" and "QTF" operators, "pure" are "QnTF" only
@@ -51,20 +50,20 @@ Grab file with easy URL, unpack and build
   - [Dataset `6n9-pure`](#dataset-6n9-pure)
   - [Building and Installation](#building-and-installation)
     - [Build system](#build-system)
-  - [`untangle-mixed-v1.db` from import file](#untangle-mixed-v1db-from-import-file)
-  - [`untangle-mixed-v1.db` from list files (15 minutes)](#untangle-mixed-v1db-from-list-files-15-minutes)
+  - [`untangle-mixed.db` from import file](#untangle-mixeddb-from-import-file)
+  - [`untangle-mixed.db` from list files (15 minutes)](#untangle-mixeddb-from-list-files-15-minutes)
     - [Section `transform`](#section-transform)
     - [Load `signature`](#load-signature)
     - [Build `swap`](#build-swap)
     - [Load `member`](#load-member)
     - [Creating data-lists](#creating-data-lists)
-  - [`untangle-mixed-v1.db` from scratch (2-3 hours)](#untangle-mixed-v1db-from-scratch-2-3-hours)
+  - [`untangle-mixed.db` from scratch (2-3 hours)](#untangle-mixeddb-from-scratch-2-3-hours)
     - [Section `transform` (1 minute)](#section-transform-1-minute)
     - [Section `signature` (5 minutes)](#section-signature-10-minutes)
     - [Section `swap` (1 minutes)](#section-swap-2-minutes)
     - [Section `member` (90 minutes)](#section-member-90-minutes)
     - [Remove `depreciated` members (30 minutes)](#remove-depreciated-members-30-minutes)
-  - [`untangle-pure-v1.db` from scratch (40 hours)](#untangle-pure-v1db-from-scratch-40-hours)
+  - [`untangle-pure.db` from scratch (40 hours)](#untangle-puredb-from-scratch-40-hours)
   - [Requirements](#requirements)
   - [Versioning](#versioning)
   - [License](#license)
@@ -137,12 +136,12 @@ There are three ways to build the database:
 
     Very fast and import is checksum protected.
 
-  - [Loading data lists](#untangle-mixed-v1db-from-list-files-15-minutes)
+  - [Loading data lists](#untangle-mixeddb-from-list-files-15-minutes)
 
     Loading the data and re-applying validation takes about 15 minutes.  
     The advantage is that data can be tweaked, mixed or manually constructed.
 
-  - [Building from scratch](#untangle-mixed-v1db-from-scratch-2-3-hours)
+  - [Building from scratch](#untangle-mixeddb-from-scratch-2-3-hours)
 
     This can take days unless there is a High-Performance-Computing grid lying around.  
     `Untangle` was build with the Sun-Grid-Engine in mind.
@@ -173,16 +172,15 @@ The database generator programs typically open the input database using `mmap()`
 
 Saving a 18G database file can take between 10 seconds to several minutes, even on SSD.
 
-## `untangle-mixed-v1.db` from import file
+## `untangle-mixed.db` from import file
 
 
-  wget https://rockingship.github.io/untangle-dataset/untangle-mixed-v1.json.xz
-  xz -d untangle-mixed-v1.json.xz
-  genimport untangle-mixed-v1.db untangle-mixed-v1.json
-  ln -s untangle-mixed-v1.db untangle.db
+```
+  genimport untangle-mixed.db untangle-mixed.json
+```
 
 
-## `untangle-mixed-v1.db` from list files (15 minutes)
+## `untangle-mixed.db` from list files (15 minutes)
 
 Export lists contain the values present in the database sections.  
 They are re-validated when loaded and are basically are a fast-forward without false-positives.  
@@ -224,17 +222,17 @@ Depreciated members have already been removed from the list.
 Node size = 5.
 
 ```
-[xyzzy@host v2.8.0]$ ./genmember swap.db 5 untangle-mixed-v1.db --load=member.lst --no-generate
+[xyzzy@host v2.8.0]$ ./genmember swap.db 5 untangle-mixed.db --load=member.lst --no-generate
 ```
 
 ### Creating data-lists
 
 ```
-[xyzzy@host v2.8.0]$ ./gensignature untangle-mixed-v1.db 4 --no-generate --text=3 > signature.lst
-[xyzzy@host v2.8.0]$ ./genmember untangle-mixed-v1.db 5 --no-generate --text=3 > member.lst
+[xyzzy@host v2.8.0]$ ./gensignature untangle-mixed.db 4 --no-generate --text=3 > signature.lst
+[xyzzy@host v2.8.0]$ ./genmember untangle-mixed.db 5 --no-generate --text=3 > member.lst
 ```
 
-## `untangle-mixed-v1.db` from scratch (2-3 hours)
+## `untangle-mixed.db` from scratch (2-3 hours)
 
 The following paragraphs contain the commands and screen logs to create the database section.
 
@@ -550,11 +548,11 @@ Search and remove component members that do not contribute to uniqueness.
 Last step is to export the database (19.6GByte) into readable text/json (103MByte) and compress with `xz` (3.9MByte).
 
 ```
-[xyzzy@host v2.8.0]$ ./genexport untangle-mixed-v1.json depr-5n9.db
-[xyzzy@host v2.8.0]$ xz untangle-mixed-v1.json
+[xyzzy@host v2.8.0]$ ./genexport untangle-mixed.json depr-5n9.db
+[xyzzy@host v2.8.0]$ xz untangle-mixed.json
 ```
 
-## `untangle-pure-v1.db` from scratch (40 hours)
+## `untangle-pure.db` from scratch (40 hours)
 
 Steps similar to the mixed version, except adding the `--pure` option to all the program invocations.
 
