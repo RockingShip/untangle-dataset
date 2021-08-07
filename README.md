@@ -10,7 +10,7 @@ image: assets/favimage-840x472.jpg
 
 # untangle-dataset
 
-RockingShip proudly presents the first version of the dataset describing practical fractal space.
+RockingShip proudly presents the second version of the dataset describing practical fractal space.
 
 TL;DR
 
@@ -22,28 +22,71 @@ Grab file with easy URL, unpack and build
   genimport untangle-mixed.db untangle-mixed.20210723.json
 ```
 
+## Areas
+
+"Signatures" are to identify the function of structures.  
+"Members" are used to create fractal structures.  
+"Patterns" (not yet included) are used to detect fractal structures.
+
+Members are always "safe", meaning they are fully interlocking.  
+When overlapping multiple members, the overlap are also safe members.  
+Using safe members to construct or extend fractal trees should never trigger normalisation.
+
+There are 3 dataset areas:
+
+  - Full, anything goes
+
+    Adding a `QTF`/QnTF` nodes to trees will rewrite them to make the additions safe.
+
+  - Mixed, for creating `QnTF`-only trees using `QTF`/QnTF` (mixed) nodes
+
+    Signatures are present for all possible top-level `QTF`/QnTF` (mixed) nodes.
+    Members to create nodes to extend the tree are `QnTF` only.
+
+  - Pure, for creating `QnTF`-only trees using `QnTF`-only nodes
+
+    Signatures and members all assume `QnTF`-only nodes.
+    An additional advantage is that signatures can span larger structures.
+
+
 ## Manifest
+
+  Available are json import to quickly construct the database.
+  Also available are tarballs containing the build log and intermediate files.
 
   Files hosted on this page:
 
-  - [untangle-mixed.20210723.json.xz](untangle-mixed.20210723.json.xz) - Import data (RECOMMENDED)  
-    SIZE=3909328, MD5=73fa36b5f2dcc2d7cf80ab0a94ab5d5a
+  - Version 20210808
 
-  - [untangle-mixed.20210723.tar.xz](untangle-mixed.20210723.tar.xz) - Data-list files  
-    SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
+    Latest version
 
-  - [untangle-pure.20210723.json.xz](untangle-pure.20210723.json.xz) - Import data  
-    SIZE=1125616, MD5=e5b40b8dec4c866a1bcb63f4aa7022d0
+    - [dataset-4n9-mixed-20210807.json.xz](dataset-4n9-mixed-20210807.json.xz) - Import data
+      SIZE=739708, MD5=d9bbf7993ea64955b1aaaf6a7cf7fb83
 
-  - [untangle-pure.20210723.tar.xz](untangle-pure.20210723.tar.xz) - Data-list files  
-    SIZE=857404, MD5=b8b8784c7b97272ccf44f263ab980b23
+    - [dataset-4n9-mixed-20210807.tar.xz](dataset-4n9-mixed-20210807.tar.xz) - Data files
+      SIZE=1386808, MD5=f6f3889dc01ec44826d4867127188086
 
-  "mixed" allow "QTnF" and "QTF" operators, "pure" are "QnTF" only
+  - Version 20210723
 
-  Other files/versions can be found on the github project page [https://github.com/RockingShip/untangle-dataset](https://github.com/RockingShip/untangle-dataset)
+    !! This version has a critical error in the member head/tail matching and should not be used !!
+
+    - [untangle-mixed.20210723.json.xz](untangle-mixed.20210723.json.xz) - Import data  
+      SIZE=3909328, MD5=73fa36b5f2dcc2d7cf80ab0a94ab5d5a
+        
+    - [untangle-mixed.20210723.tar.xz](untangle-mixed.20210723.tar.xz) - Data-list files  
+      SIZE=3034856, MD5=4c9f0974d902dada332484cbe3fb3776
+        
+    - [untangle-pure.20210723.json.xz](untangle-pure.20210723.json.xz) - Import data  
+      SIZE=1125616, MD5=e5b40b8dec4c866a1bcb63f4aa7022d0
+
+    - [untangle-pure.20210723.tar.xz](untangle-pure.20210723.tar.xz) - Data-list files  
+      SIZE=857404, MD5=b8b8784c7b97272ccf44f263ab980b23
+
+    Other files/versions can be found on the github project page [https://github.com/RockingShip/untangle-dataset](https://github.com/RockingShip/untangle-dataset)
 
 ## Table of contents
 
+  - [Areas](#areas)
   - [Manifest](#manifest)
   - [Table of contents](#table-of-contents)
   - [Dataset `5n9-mixed`](#dataset-5n9-mixed)
@@ -417,14 +460,14 @@ For that we need to create a specialised database.
 First get a list of incomplete signature groups.  
 
 ```
-[xyzzy@host v2.8.0]$ ./genmember member-4n9.db 4 --no-generate --listunsafe >missing.lst
-[xyzzy@host v2.8.0]$ wc missing.lst # should output 32
+[xyzzy@host v2.8.0]$ ./genmember member-4n9.db 4 --no-generate --listunsafe >missing-4n9.lst
+[xyzzy@host v2.8.0]$ wc missing-4n9.lst # should output 32
 ```
 
 Then create a database with full associative lookups. This needs user supplied limits, each signature requires roughly worstcase 400000 imprints.
 
 ```
-[xyzzy@host v2.8.0]$ ./gensignature transform.db 4 missing-4n9.db --load=missing.lst --no-generate --interleave=362880 --maximprint=12800000 
+[xyzzy@host v2.8.0]$ ./gensignature transform.db 4 missing-4n9.db --load=missing-4n9.lst --no-generate --interleave=362880 --maximprint=150000000 
 ```
 
 Search `5n9` space, save the checkpoints and reapply them to the main database.
@@ -563,6 +606,40 @@ It takes 9 single-core hours to scan `5n9` space which finds all but 3 signature
 Scanning `6n9` space for the remaining 3 requires an additional 30 single-core hours.
 
 In total some 33M members were found of which 381582 were selected as contributing.
+
+```
+  ./gentransform transform.db
+  #
+  ./gensignature transform.db  1 signature-1n9.db --text=1 >signature-1n9.ckp --pure
+  ./gensignature signature-1n9.db  2 signature-2n9.db --text=1 >signature-2n9.ckp --pure
+  ./gensignature signature-2n9.db  3 signature-3n9.db --text=1 >signature-3n9.ckp --pure
+  ./gensignature signature-3n9.db  4 signature-4n9.db --text=1 >signature-4n9.ckp --pure
+  #
+  ./genswap  signature-4n9.db swap-4n9.db --pure
+  #
+  ./genmember swap-4n9.db 1 member-1n9.db --text=1 >member-1n9.ckp --pure
+  ./genmember member-1n9.db 2 member-2n9.db --text=1 >member-2n9.ckp --pure
+  ./genmember member-2n9.db 3 member-3n9.db --text=1 >member-3n9.ckp --pure
+  ./genmember member-3n9.db 4 member-4n9.db --text=1 >member-4n9.ckp --pure
+  #
+  mkdir log-member-5n9
+  qsub -wd $PWD -o log-member-5n9 -e log-member-5n9 -b y -t 1-81 -q 4G.q -ckpt check ./genmember --task=sge  member-4n9.db 5 --text=1 --pure
+  # wait-till-complete
+  grep done log-member-5n9/genmember.e* | wc
+  cat log-member-5n9/genmember.o* >member-5n9.ckp
+  ./genmember member-4n9.db 5 member-5n9.db --load=member-5n9.ckp --no-generate  --pure
+  # 
+  ./gensignature member-5n9.db 4 --no-generate --listunsafe >missing.lst
+  wc missing.lst
+  ./gensignature transform.db 5 missing-5n9.db --load=missing.lst --no-generate --interleave=362880 --maximprint=12800000 --pure --maxsignature=90
+  #
+  mkdir log-missing-6n9
+  qsub -wd $PWD -o log-missing-6n9 -e log-missing-6n9 -b y -t 1-2187 -q 4G.q -ckpt check ./genmember --task=sge missing-5n9.db 6 --text=1 --pure
+  # wait-till-complete
+  grep done log-missing-6n9/genmember.e* | wc
+  cat log-missing-6n9/genmember.o* >member-6n9.ckp
+  ./genmember member-5n9.db 6 member-6n9.db --load=member-6n9.ckp --no-generate  --pure
+```
 
 ## Requirements
 
