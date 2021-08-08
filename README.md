@@ -12,6 +12,9 @@ image: assets/favimage-840x472.jpg
 
 RockingShip proudly presents the second version of the dataset describing practical fractal space.
 
+This is the first time the 4n9-mixed dataset is complete. Jay!  
+That means the detector/creator are fully seamless.
+
 TL;DR
 
 Grab file with easy URL, unpack and build
@@ -29,8 +32,8 @@ Grab file with easy URL, unpack and build
 "Patterns" (not yet included) are used to detect fractal structures.
 
 Members are always "safe", meaning they are fully interlocking.  
-When overlapping multiple members, the overlap are also safe members.  
-Using safe members to construct or extend fractal trees should never trigger normalisation.
+When overlapping multiple members, the overlap is also a safe members.  
+Using safe members to construct or extend fractal trees should (internally) never trigger normalisation.
 
 There are 3 dataset areas:
 
@@ -56,17 +59,23 @@ There are 3 dataset areas:
 
   Files hosted on this page:
 
-  - Version 20210808
+  - Version 20210808 using untangle 2.9.0
 
     Latest version
 
-    - [dataset-4n9-mixed-20210807.json.xz](dataset-4n9-mixed-20210807.json.xz) - Import data
+    - [untangle-4n9-full-20210807.json.xz](untangle-4n9-full-20210807.json.xz) - Import data
+      SIZE=1523952, MD5=6f8d6705f48a8035dceb5a878018932e
+
+    - [untangle-4n9-full-20210807.tar.xz](untangle-4n9-full-20210807.tar.xz) - Data files
+      SIZE=1305940, MD5=6821fc28b4ee5d2efcf75f3defeb46b5
+
+    - [untangle-4n9-mixed-20210807.json.xz](untangle-4n9-mixed-20210807.json.xz) - Import data
       SIZE=739708, MD5=d9bbf7993ea64955b1aaaf6a7cf7fb83
 
-    - [dataset-4n9-mixed-20210807.tar.xz](dataset-4n9-mixed-20210807.tar.xz) - Data files
+    - [untangle-4n9-mixed-20210807.tar.xz](untangle-4n9-mixed-20210807.tar.xz) - Data files
       SIZE=1386808, MD5=f6f3889dc01ec44826d4867127188086
 
-  - Version 20210723
+  - Version 20210723 using untangle 2.8.0
 
     !! This version has a critical error in the member head/tail matching and should not be used !!
 
