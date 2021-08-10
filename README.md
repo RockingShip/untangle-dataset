@@ -10,7 +10,7 @@ image: assets/favimage-840x472.jpg
 
 # untangle-dataset
 
-RockingShip proudly presents the second version of the dataset describing practical fractal space.
+RockingShip proudly presents the third version of the dataset describing practical fractal space.
 
 This is the first time the 4n9-mixed dataset is complete. Jay!  
 That means the detector/creator are fully seamless.
@@ -57,22 +57,36 @@ There are 3 dataset areas:
   Available are json import to quickly construct the database.
   Also available are tarballs containing the build log and intermediate files.
 
-  Files hosted on this page:
+  Files hosted on this page (latest versions first):
+
+  - Version 20210810 using untangle 2.9.1
+
+    This version was built with cascading dyadics `--cascade`
+
+    - [untangle-4n9-full-20210810.json.xz](untangle-4n9-full-20210810.json.xz) - Import data  
+      SIZE=1589212, MD5=13c364981bb76def331c8add85dc435f
+
+    - [untangle-4n9-full-20210810.tar.xz](untangle-4n9-full-20210810.tar.xz) - Data files  
+      SIZE=1338416, MD5=de9c0132c082d2fe9f1b7cdb596c32e3
+
+    - [untangle-4n9-mixed-20210810.json.xz](untangle-4n9-mixed-20210810.json.xz) - Import data  
+      SIZE=720628, MD5=90a96f1c00e78ffd07c5ff28773ba5b9
+
+    - [untangle-4n9-mixed-20210810.tar.xz](untangle-4n9-mixed-20210810.tar.xz) - Data files  
+      SIZE=1857848, MD5=45f4ee784018806a6baed8cef39fd4df
 
   - Version 20210808 using untangle 2.9.0
 
-    Latest version
-
-    - [untangle-4n9-full-20210807.json.xz](untangle-4n9-full-20210807.json.xz) - Import data
+    - [untangle-4n9-full-20210807.json.xz](untangle-4n9-full-20210807.json.xz) - Import data  
       SIZE=1523952, MD5=6f8d6705f48a8035dceb5a878018932e
 
-    - [untangle-4n9-full-20210807.tar.xz](untangle-4n9-full-20210807.tar.xz) - Data files
+    - [untangle-4n9-full-20210807.tar.xz](untangle-4n9-full-20210807.tar.xz) - Data files  
       SIZE=1305940, MD5=6821fc28b4ee5d2efcf75f3defeb46b5
 
-    - [untangle-4n9-mixed-20210807.json.xz](untangle-4n9-mixed-20210807.json.xz) - Import data
+    - [untangle-4n9-mixed-20210807.json.xz](untangle-4n9-mixed-20210807.json.xz) - Import data  
       SIZE=739708, MD5=d9bbf7993ea64955b1aaaf6a7cf7fb83
 
-    - [untangle-4n9-mixed-20210807.tar.xz](untangle-4n9-mixed-20210807.tar.xz) - Data files
+    - [untangle-4n9-mixed-20210807.tar.xz](untangle-4n9-mixed-20210807.tar.xz) - Data files  
       SIZE=1386808, MD5=f6f3889dc01ec44826d4867127188086
 
   - Version 20210723 using untangle 2.8.0
