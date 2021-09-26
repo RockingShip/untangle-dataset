@@ -9,6 +9,25 @@ Using creation dates as version number as not to confuse with `untangle` version
 
 ## [Unreleased]
 
+## 2021-09-26 11:39:05 [Version 20210926]
+
+Version 20210926 using untangle 2.10.1
+
+  This version was built with cascading dyadics `--cascade`.
+  Cascading is left-hand-side only ("ab^c^d^e^").
+
+  - [untangle-4n9-full-20210926.json.xz](untangle-4n9-full-20210926.json.xz) - Import data  
+    SIZE=1567408, MD5=909bde9853ab11dcaeba90bdf66efddd
+
+  - [untangle-4n9-full-20210926.tar.xz](untangle-4n9-full-20210926.tar.xz) - Data files  
+    SIZE=1346580, MD5=293a077c5e24692468767304ad69c495
+
+  - [untangle-4n9-mixed-20210926.json.xz](untangle-4n9-mixed-20210926.json.xz) - Import data  
+    SIZE=683988, MD5=1d2c7671171560a9316c93284b082ff4
+
+  - [untangle-4n9-mixed-20210926.tar.xz](untangle-4n9-mixed-20210926.tar.xz) - Data files  
+    SIZE=558844, MD5=abaa3225f2344ebb08c869c18b981663
+
 ## 2021-08-10 21:44:21 [Version 20210810]
 
 Version 20210810 using untangle 2.9.1
@@ -74,6 +93,7 @@ Initial dataset generated with `untangle` version 2.8.0
 2021-07-18 21:31:28 Initial commit. 
 ```
 
-[Unreleased]: https://git.rockingship.org/RockingShip/untangle-dataset/compare/v20210810...HEAD
+[Unreleased]: https://git.rockingship.org/RockingShip/untangle-dataset/compare/20210926...HEAD
+[Version 20210926]: https://git.rockingship.org/RockingShip/untangle/compare/v20210810...20210926
 [Version 20210810]: https://git.rockingship.org/RockingShip/untangle/compare/v20210807...v20210810
 [Version 20210807]: https://git.rockingship.org/RockingShip/untangle/compare/v20210723...v20210807
