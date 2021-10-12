@@ -17,12 +17,24 @@ That means the detector/creator are fully seamless.
 
 TL;DR
 
-Grab file with easy URL, unpack and build
+Grab compressed json file, unpack and build.
+
+For latest 4n9-full:
 
 ```sh
-  wget https://rockingship.github.io/untangle-dataset/untangle-mixed.20210723.json.xz
-  xz -d untangle-mixed.20210723.json.xz
-  genimport untangle-mixed.db untangle-mixed.20210723.json
+  wget https://rockingship.github.io/untangle-dataset/untangle-4n9-full-20211012.json.xz
+  xz -d untangle-4n9-full-20211012.json.xz
+  genimport untangle-4n9-full-20211012.db untangle-4n9-full-20211012.json
+  ln -s untangle-4n9-full-20211012.db untangle.db
+```
+
+For latest 4n9-mixed:
+
+```sh
+  wget https://rockingship.github.io/untangle-dataset/untangle-4n9-mixed-20210926.json.xz
+  xz -d untangle-4n9-mixed-20210926.json.xz
+  genimport untangle-4n9-mixed-20210926.db untangle-4n9-mixed-20210926.json
+  ln -s untangle-4n9-mixed-20210926.db untangle.db
 ```
 
 ## Areas
@@ -59,16 +71,26 @@ There are 3 dataset areas:
 
   Files hosted on this page (latest versions first):
 
+  - Version 20210926 using untangle 2.11.0
+
+    This version was built with `--cascade --rewrite`.
+
+    - [untangle-4n9-full-20211012.json.xz](untangle-4n9-full-20211012.json.xz) - Import data  
+      SIZE=1513232, MD5=f113a5c80ee9e17d611dc73016118cb4
+
+    - [untangle-4n9-full-20211012.tar.xz](untangle-4n9-full-20211012.tar.xz) - Data files  
+      SIZE=1292264, MD5=64c3c755bc9f69b2d984a2b21402527c
+
   - Version 20210926 using untangle 2.10.1
 
     This version was built with cascading dyadics `--cascade`.  
     Cascading is left-hand-side only ("ab^c^d^e^").
 
     - [untangle-4n9-full-20210926.json.xz](untangle-4n9-full-20210926.json.xz) - Import data  
-      SIZE=1567408, MD5=909bde9853ab11dcaeba90bdf66efddd
+      Corrupted, please use the 20211012 version
 
     - [untangle-4n9-full-20210926.tar.xz](untangle-4n9-full-20210926.tar.xz) - Data files  
-      SIZE=1346580, MD5=293a077c5e24692468767304ad69c495
+      Corrupted, please use the 20211012 version
 
     - [untangle-4n9-mixed-20210926.json.xz](untangle-4n9-mixed-20210926.json.xz) - Import data  
       SIZE=683988, MD5=1d2c7671171560a9316c93284b082ff4
